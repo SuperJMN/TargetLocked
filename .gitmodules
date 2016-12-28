@@ -1,0 +1,4 @@
+[submodule "Avalonia"]
+	path = Avalonia
+	url = https://github.com/SuperJMN/Avalonia-JMN.git
+	branch = omnixamlv2-integration
