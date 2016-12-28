@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="special"
+        xmlns:conv="using:Desktop.ViewSupport;Assembly=Desktop"
+        xmlns:my="using:Desktop.Controls;assembly=Desktop" Title="Review">
+    <Window.Styles>
+        <Style Selector="ItemsControl &gt; ContentPresenter">
+            <Setter Property="Canvas.Left" Value="{Binding Rect.Left}" />
+            <Setter Property="Canvas.Top" Value="{Binding Rect.Top}" />
+        </Style>
+    </Window.Styles>
+    <ListBox Items="{Binding Identifications}">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <Grid ColumnDefinitions="*,*">
+                    <Border>
+                        <my:Viewbox Height="200">
+                            <Grid>
+                                <Image Stretch="None">
+                                    <Image.Source>
+                                        <MultiBinding Converter="{Static conv:Converters.FromFrameIdToBitmap}">
+                                            <Binding Path="Identification.Ordinal" />
+                                            <Binding Path="Source" />
+                                        </MultiBinding>
+                                    </Image.Source>
+                                </Image>
+                                <ItemsControl Items="{Binding Identification.Faces}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Canvas />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Rectangle
+                                                Width="{Binding Rect.Width}"
+                                                Height="{Binding Rect.Height}"
+                                                Fill="#AAFF2222" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock FontWeight="Bold" FontSize="25" Foreground="White"  VerticalAlignment="Top" HorizontalAlignment="Right" Text="{Binding Identification.FrameId}" />
+                            </Grid>
+                        </my:Viewbox>
+                    </Border>
+                    
+                </Grid>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+</Window>

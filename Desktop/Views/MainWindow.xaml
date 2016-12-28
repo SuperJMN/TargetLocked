@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="special"
+        xmlns:conv="using:Desktop.ViewSupport;Assembly=Desktop"
+        xmlns:my="using:Desktop.My;assembly=Desktop"
+        Title="Target Locked">
+
+    <Window.Styles>
+
+        <Style Selector="HeaderedContentControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border>
+                            <StackPanel>
+                                <ContentPresenter TextBlock.FontWeight="Bold" Content="{TemplateBinding Header}" />
+                                <Border
+                                    BorderBrush="{TemplateBinding Background}"
+                                    BorderThickness="2"
+                                    CornerRadius="5">
+                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border
+                        CornerRadius="5"
+                        Background="{TemplateBinding Background}"
+                        Padding="{TemplateBinding Padding}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          TextBlock.Foreground="{TemplateBinding Foreground}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        <Style Selector="TextBox">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="Auto,*">
+
+        <Grid HorizontalAlignment="Center" ColumnDefinitions="3*,1*" RowDefinitions="*,Auto" Margin="15">
+            <Image Source="resm:[Desktop]/Images/Logo.png" Grid.RowSpan="2"  Height="120" Margin="5,5,15,5" />
+            <TextBlock VerticalAlignment="Center"  Grid.Column="1" FontSize="25" FontWeight="Bold">Target Locked ;)</TextBlock>
+            <TextBlock VerticalAlignment="Top" Grid.Row="1" Grid.Column="1">by JMN</TextBlock>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto,*">
+            <StackPanel Orientation="Horizontal">
+                <Button Command="{Binding AddJobCommand}">
+                    <StackPanel>
+                        <Image Height="40" Source="resm:[Desktop]/Images/Add.png" />
+                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center">Add job</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <ListBox Grid.Row="1" Items="{Binding Jobs}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*,*,Auto,Auto" RowDefinitions="Auto,*,Auto">
+                            <TextBlock Margin="8" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding VideoPath}" VerticalAlignment="Center" />
+                            <Grid Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"  ColumnDefinitions="Auto,*">
+                                <Button Command="{Binding BrowseCommand}" >
+                                    <StackPanel>
+                                        <Image Height="100" Source="resm:[Desktop]/Images/VideoFile.png" />
+                                        <TextBlock FontWeight="Bold" HorizontalAlignment="Center">Select video…</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </Grid>
+                            <HeaderedContentControl Grid.Row="1" IsVisible="{Binding CanProcess}"  Grid.Column="1" Header="Capture options" Background="LightBlue"
+                                                    Margin="10">
+                                <StackPanel Grid.Column="1">
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <TextBlock Text="Capture start:" />
+                                        <Slider Value="{Binding CaptureStart, Mode=OneWayToSource}"
+                                                Maximum="{Binding Metadata.TotalFrames}" Grid.Column="1" />
+                                        <TextBlock Grid.Column="2">
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{Static conv:Converters.FromFrameToTimeSpan}">
+                                                    <Binding Path="CaptureStart" />
+                                                    <Binding Path="Metadata.Fps" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Grid>
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <TextBlock Text="Capture end:" />
+                                        <Slider Value="{Binding CaptureEnd, Mode=OneWayToSource}"
+                                                Maximum="{Binding Metadata.TotalFrames}" Grid.Column="1" />
+                                        <TextBlock Grid.Column="2">
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{Static conv:Converters.FromFrameToTimeSpan}">
+                                                    <Binding Path="CaptureEnd" />
+                                                    <Binding Path="Metadata.Fps" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Grid>
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <TextBlock Text="Capture rate:" />
+                                        <Slider Value="{Binding CaptureRate, Mode=OneWayToSource}"
+                                                Maximum="10" Grid.Column="1" Minimum="1" />
+                                        <TextBlock Grid.Column="2" Text="{Binding CaptureRate}" />
+                                    </Grid>
+                                </StackPanel>
+                            </HeaderedContentControl>
+                            <HeaderedContentControl Grid.Row="1" IsVisible="{Binding CanProcess}" Grid.Column="2" Header="Metadata" Background="LightBlue"
+                                                    Margin="10">
+                                <StackPanel Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="FPS:" />
+                                        <TextBlock Text="{Binding Metadata.Fps}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Duration" />
+                                        <TextBlock Text="{Binding Metadata.Duration}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </HeaderedContentControl>
+                            <Grid Grid.Row="1" IsVisible="{Binding CanProcess}" Grid.Column="3" ColumnDefinitions="*,*">
+                                <Button Command="{Binding ProcessJobCommand}">Start</Button>
+                                <Button Grid.Column="1" Command="{Binding ReviewCommand}">Review</Button>
+                            </Grid>
+                            <ProgressBar IsVisible="{Binding IsProcessing}"  Grid.Row="2" Grid.ColumnSpan="4" Maximum="{Binding FramesToTake}" Value="{Binding ProcessedCount}" />
+                            <!--<TextBlock Grid.Row="3"  Grid.ColumnSpan="4" HorizontalAlignment="Center" Text="{Binding ProcessedCount}" />-->
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+    </Grid>
+</Window>

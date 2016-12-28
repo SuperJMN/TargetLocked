@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Application xmlns="https://github.com/avaloniaui">
+    <Application.Styles>
+        <StyleInclude Source="resm:[Avalonia.Themes.Default]/DefaultTheme.xaml" />
+
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="#fff0f0FF"/>
+        </Style>
+        <Style Selector="ListBoxItem:selected:focus /template/ ContentPresenter">
+            <Setter Property="Background" Value="#ffd0d0FF"/>
+        </Style>
+
+        <Style xmlns="https://github.com/avaloniaui"
+               xmlns:x="special"
+               xmlns:mut="https://github.com/avaloniaui/mutable"
+               xmlns:sys="using:System;assembly=mscorlib">
+            <Style.Resources>
+                <mut:SolidColorBrush x:Key="ThemeBackgroundBrush">#FFFFFFFF</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeBorderLightBrush">#FF3A7FFF</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeBorderMidBrush">#FF8888EE</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeBorderDarkBrush">#FF333388</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeControlLightBrush">#FFFFFFFF</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeControlMidBrush">#FF72B4FF</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeControlDarkBrush">#FF8888EE</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeForegroundBrush">#FF000000</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeForegroundLightBrush">#FF8080EE</mut:SolidColorBrush>
+
+                <mut:SolidColorBrush x:Key="HighlightBrush">#FF086F9E</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeAccentBrush">#CC119EDA</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeAccentBrush2">#99119EDA</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeAccentBrush3">#66119EDA</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ThemeAccentBrush4">#33119EDA</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ErrorBrush">Red</mut:SolidColorBrush>
+                <mut:SolidColorBrush x:Key="ErrorBrushLight">#10ff0000</mut:SolidColorBrush>
+
+                <sys:Double x:Key="ThemeBorderThickness">2</sys:Double>
+                <sys:Double x:Key="ThemeDisabledOpacity">0.5</sys:Double>
+
+                <sys:Double x:Key="FontSizeSmall">10</sys:Double>
+                <sys:Double x:Key="FontSizeNormal">12</sys:Double>
+                <sys:Double x:Key="FontSizeLarge">16</sys:Double>
+            </Style.Resources>
+        </Style>
+
+    </Application.Styles>
+</Application>
