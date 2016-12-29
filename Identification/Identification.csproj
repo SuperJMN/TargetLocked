@@ -57,16 +57,6 @@
     </None>
     <None Include="project.json" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\dot-imaging\Source\GenericImage\GenericImage.csproj">
-      <Project>{3cf8f155-3da1-4529-9b28-d409e86ed4e2}</Project>
-      <Name>GenericImage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dot-imaging\Source\IO\IO.csproj">
-      <Project>{ed70a44e-9443-4a28-9b95-31299f8b2d08}</Project>
-      <Name>IO</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
